@@ -72,8 +72,8 @@ header{
 }
 .employee-info span {
     background:#e0e7ff;
-    padding:2px 6px;      /* 🔽 kichraydi */
-    border-radius:4px;
+    padding:1px 5px;      /* 🔽 kichraydi */
+    border-radius:3px;
     font-size:12px;       /* 🔽 yozuv kichraydi */
     display:inline-block; /* ⚠️ muhim */
     width:fit-content;    /* ⚠️ ramka matnga yopishadi */
@@ -247,10 +247,10 @@ function renderEmployees(filter=false){
         <div class="employee-header">
             <b>${emp.name} (${emp.position})</b>
             <div class="employee-btns">
-                <button class="add-task" onclick="addTask(${i})">Vazifa</button>
-                <button class="remove-employee" onclick="removeEmployee(${i})">O‘chirish</button>
+                <button class="add-task" onclick="addTask(${i})">Vazifa qo'shish</button>
+                <button class="remove-employee" onclick="removeEmployee(${i})">Hodimni o‘chirish</button>
                 <button class="show-done" onclick="toggleDoneTasks(${i})">
-                    ${emp.showDone?"Yashirish":"Bajarilganlar"}
+                    ${emp.showDone?"Yashirish":"Bajarilganlar vafizalarni ko'rish"}
                 </button>
             </div>
         </div>
@@ -284,4 +284,5 @@ function renderEmployees(filter=false){
 
 </body>
 </html>
+
 
