@@ -4,176 +4,129 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hodimlar Platformasi</title>
+
 <style>
 :root {
-    --primary-color: #1e40af;
-    --secondary-color: #2563eb;
-    --bg-light: #f4f6f8;
-    --bg-dark: #1e1e2f;
-    --text-light: #ffffff;
-    --text-dark: #1e1e2f;
-    --task-done: #28a745;
-    --task-overdue: #dc3545;
-    --task-pending: #facc15;
+    --primary-color:#1e40af;
+    --secondary-color:#2563eb;
+    --bg-light:#f4f6f8;
+    --bg-dark:#1e1e2f;
+    --text-light:#ffffff;
+    --text-dark:#1e1e2f;
+    --task-done:#28a745;
+    --task-overdue:#dc3545;
+    --task-pending:#facc15;
 }
-
-body {
+body{
     margin:0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: var(--bg-light);
-    color: var(--text-dark);
+    font-family:'Segoe UI',sans-serif;
+    background:var(--bg-light);
+    color:var(--text-dark);
 }
-
-header {
-    background-color: var(--primary-color);
-    color: white;
+header{
+    background:var(--primary-color);
+    color:white;
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:15px 20px;
     position:sticky;
     top:0;
-    z-index:10;
 }
-header h1 {
-    margin:0;
-    font-size:24px;
-}
-.theme-toggle {
+.theme-toggle{
     background:none;
     border:none;
     font-size:22px;
     cursor:pointer;
 }
-
-.controls {
+.controls,.filters{
     display:flex;
     gap:10px;
     padding:10px 20px;
+    flex-wrap:wrap;
 }
-.controls button {
+.controls button{
     padding:6px 12px;
     border:none;
-    background-color: var(--secondary-color);
+    background:var(--secondary-color);
     color:white;
     border-radius:5px;
     cursor:pointer;
-    font-size:14px;
 }
-
-/* Filters */
-.filters {
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    padding:10px 20px;
-}
-.filters select, .filters input[type="date"] {
-    padding:5px;
-    border-radius:5px;
-    border:1px solid #ccc;
-}
-
-/* Employee List */
-.employee-list {
+.employee-list{
     padding:10px 20px;
     display:flex;
     flex-direction:column;
     gap:15px;
 }
-.employee {
+.employee{
+    background:white;
     border-radius:10px;
-    background-color:white;
     padding:15px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    box-shadow:0 2px 6px rgba(0,0,0,.1);
 }
-.employee-header {
+.employee-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
 }
-.employee-name {
-    font-weight:bold;
-    font-size:18px;
-}
-.employee-info {
-    display:flex;
-    flex-wrap:wrap;
-    gap:15px;
-}
-.employee-info span {
+.employee-info span{
     background:#e0e7ff;
     padding:5px 10px;
     border-radius:5px;
-    font-size:14px;
+    margin-right:10px;
 }
-.employee-btns button {
+.employee-btns button{
     margin-left:5px;
     padding:4px 8px;
-    font-size:13px;
-    border-radius:5px;
     border:none;
+    border-radius:5px;
     cursor:pointer;
 }
-.employee-btns button.add-task {background-color:#2563eb; color:white;}
-.employee-btns button.remove-employee {background-color:#dc3545; color:white;}
-.employee-btns button.show-done {background-color:#16a34a; color:white;}
+.add-task{background:#2563eb;color:white;}
+.remove-employee{background:#dc3545;color:white;}
+.show-done{background:#16a34a;color:white;}
 
-/* Tasks */
-.tasks {
-    display:flex;
-    flex-direction:column;
-    gap:5px;
-    margin-left:20px;
-}
-.task {
-    border-radius:6px;
+.tasks{margin-left:20px;display:flex;flex-direction:column;gap:6px;}
+.task{
+    background:#f9f9f9;
     padding:8px 10px;
+    border-radius:6px;
     display:flex;
     justify-content:space-between;
-    align-items:center;
     border-left:5px solid var(--task-pending);
-    background-color:#f9f9f9;
 }
-.task.done {border-left-color: var(--task-done); background-color:#d1fae5; text-decoration:line-through;}
-.task.overdue {border-left-color: var(--task-overdue); background-color:#fca5a5;}
-.task span {flex:1;}
-.task button {
+.task.done{background:#d1fae5;border-left-color:var(--task-done);text-decoration:line-through;}
+.task.overdue{background:#fca5a5;border-left-color:var(--task-overdue);}
+.task button{
     margin-left:5px;
-    padding:3px 6px;
-    font-size:12px;
-    cursor:pointer;
-    border-radius:4px;
     border:none;
+    border-radius:4px;
+    padding:3px 6px;
+    cursor:pointer;
 }
-.task button.done-btn {background-color:var(--task-done); color:white;}
-.task button.edit-btn {background-color:#fbbf24; color:white;}
-.task button.move-btn {background-color:#3b82f6; color:white;}
+.done-btn{background:#28a745;color:white;}
+.edit-btn{background:#fbbf24;color:white;}
+.move-btn{background:#3b82f6;color:white;}
 
-/* Dark theme */
-body.dark {
-    background-color:var(--bg-dark);
-    color:var(--text-light);
+body.dark{
+    background:var(--bg-dark);
+    color:white;
 }
-body.dark .employee {background-color:#2b2b3a; box-shadow:0 2px 6px rgba(0,0,0,0.5);}
-body.dark .task {background-color:#3b3b4b;}
-body.dark .task.done {background-color:#166534; color:white;}
-body.dark .task.overdue {background-color:#991b1b; color:white;}
-body.dark .employee-info span {background:#3b82f6; color:white;}
+body.dark .employee{background:#2b2b3a;}
+body.dark .task{background:#3b3b4b;}
 </style>
 </head>
+
 <body>
 
 <header>
 <h1>Hodimlar bo'yicha ma'lumot</h1>
-<button class="theme-toggle" onclick="toggleTheme()">🌙/☀️</button>
+<button class="theme-toggle" onclick="toggleTheme()">🌙 / ☀️</button>
 </header>
 
 <div class="controls">
-<button onclick="addEmployee()">Hodim qo'shish</button>
+<button onclick="addEmployee()">Hodim qo‘shish</button>
 </div>
 
 <div class="filters">
@@ -190,176 +143,142 @@ body.dark .employee-info span {background:#3b82f6; color:white;}
 <div class="employee-list" id="employeeList"></div>
 
 <script>
-let employees=[];
+let employees = [];
 
-// Tema
-function toggleTheme(){document.body.classList.toggle('dark');}
+/* ===== SAQLASH / YUKLASH ===== */
+function saveData(){
+    localStorage.setItem("employeesData", JSON.stringify(employees));
+}
+function loadData(){
+    const data = localStorage.getItem("employeesData");
+    if(data){
+        employees = JSON.parse(data);
+    }
+    renderEmployees();
+}
+window.onload = loadData;
 
-// Hodim qo'shish
+/* ===== TEMA ===== */
+function toggleTheme(){
+    document.body.classList.toggle('dark');
+}
+
+/* ===== HODIM ===== */
 function addEmployee(){
-const name=prompt("Hodim ismi va familiyasi:");
-if(!name) return;
-const location=prompt("Qayerda ishlaydi:");
-const position=prompt("Ishlayotgani:");
-employees.push({name,location,position,tasks:[],showDone:false});
-renderEmployees();
-updateEmployeeFilter();
+    const name = prompt("Hodim ismi familiyasi:");
+    if(!name) return;
+    const location = prompt("Qayerda ishlaydi:");
+    const position = prompt("Lavozimi:");
+    employees.push({name,location,position,tasks:[],showDone:false});
+    saveData();
+    renderEmployees();
 }
 
-// Hodimni o'chirish
-function removeEmployee(index){
-if(confirm("Hodimni o‘chirilsinmi?")){
-employees.splice(index,1);
-renderEmployees();
-updateEmployeeFilter();
-updateTaskFilter();
-}}
-
-// Vazifa qo‘shish
-function addTask(index){
-const taskName=prompt("Vazifa nomi:");
-const deadline=prompt("Bajarish muddati (YYYY-MM-DD):");
-const location=prompt("Qayerda bajariladi:");
-if(taskName && deadline && location){
-employees[index].tasks.push({name:taskName,deadline:deadline,location:location,done:false});
-renderEmployees();
-updateTaskFilter();
-}}
-
-// Bajarildi qilish
-function markDone(empIndex,taskIndex){
-employees[empIndex].tasks[taskIndex].done=true;
-renderEmployees();
+function removeEmployee(i){
+    if(confirm("Hodim o‘chirilsinmi?")){
+        employees.splice(i,1);
+        saveData();
+        renderEmployees();
+    }
 }
 
-// Taxrirlash
-function editTask(empIndex,taskIndex){
-const task=employees[empIndex].tasks[taskIndex];
-const name=prompt("Vazifa nomi:",task.name);
-const deadline=prompt("Bajarish muddati:",task.deadline);
-const location=prompt("Qayerda:",task.location);
-const done=confirm("Vazifa bajarilganmi? OK = ha, Cancel = yo‘q");
-task.name=name || task.name;
-task.deadline=deadline || task.deadline;
-task.location=location || task.location;
-task.done=done;
-renderEmployees();
+/* ===== VAZIFA ===== */
+function addTask(i){
+    const name = prompt("Vazifa nomi:");
+    const deadline = prompt("Muddati (YYYY-MM-DD):");
+    const location = prompt("Qayerda bajariladi:");
+    if(name && deadline){
+        employees[i].tasks.push({name,deadline,location,done:false});
+        saveData();
+        renderEmployees();
+    }
 }
 
-// Vazifani boshqa hodimga
-function moveTask(empIndex,taskIndex){
-const newEmp=prompt("Vazifani qaysi hodimga o‘tkazish?");
-const targetIndex=employees.findIndex(e=>e.name.toLowerCase()===newEmp.toLowerCase());
-if(targetIndex>=0){
-employees[targetIndex].tasks.push(employees[empIndex].tasks[taskIndex]);
-employees[empIndex].tasks.splice(taskIndex,1);
-renderEmployees();
-}else alert("Hodim topilmadi!");
+function markDone(e,t){
+    employees[e].tasks[t].done = true;
+    saveData();
+    renderEmployees();
 }
 
-// Bajarilgan vazifalarni ko‘rsatish
-function toggleDoneTasks(index){
-employees[index].showDone=!employees[index].showDone;
-renderEmployees();
+function editTask(e,t){
+    const task = employees[e].tasks[t];
+    task.name = prompt("Vazifa nomi:",task.name) || task.name;
+    task.deadline = prompt("Muddati:",task.deadline) || task.deadline;
+    task.location = prompt("Qayerda:",task.location) || task.location;
+    task.done = confirm("Bajarildimi?");
+    saveData();
+    renderEmployees();
 }
 
-// Filtrlar
+function moveTask(e,t){
+    const name = prompt("Qaysi hodimga?");
+    const i = employees.findIndex(x=>x.name.toLowerCase()==name.toLowerCase());
+    if(i>=0){
+        employees[i].tasks.push(employees[e].tasks[t]);
+        employees[e].tasks.splice(t,1);
+        saveData();
+        renderEmployees();
+    }else alert("Hodim topilmadi!");
+}
+
+function toggleDoneTasks(i){
+    employees[i].showDone = !employees[i].showDone;
+    saveData();
+    renderEmployees();
+}
+
+/* ===== FILTR ===== */
 function applyFilter(){
-const empName=document.getElementById('employeeFilter').value.toLowerCase();
-const taskName=document.getElementById('taskFilter').value.toLowerCase();
-const start=document.getElementById('startDate').value;
-const end=document.getElementById('endDate').value;
-const listDiv=document.getElementById('employeeList'); listDiv.innerHTML='';
-employees.forEach((emp,index)=>{
-if(empName && !emp.name.toLowerCase().includes(empName)) return;
-let filteredTasks=emp.tasks.filter(t=>!t.done);
-if(taskName) filteredTasks=filteredTasks.filter(t=>t.name.toLowerCase().includes(taskName));
-if(start) filteredTasks=filteredTasks.filter(t=>t.deadline>=start);
-if(end) filteredTasks=filteredTasks.filter(t=>t.deadline<=end);
-listDiv.appendChild(renderEmployee(emp,index,filteredTasks));
-});}
-
-// Hodimlarni render qilish
-function renderEmployees(){
-const listDiv=document.getElementById('employeeList'); listDiv.innerHTML='';
-employees.forEach((emp,index)=>{
-// Vazifalar filtrlangan
-const pendingTasks=emp.tasks.filter(t=>!t.done);
-listDiv.appendChild(renderEmployee(emp,index,pendingTasks));
-});
-updateEmployeeFilter();
-updateTaskFilter();
+    renderEmployees(true);
 }
 
-// Hodimni render
-function renderEmployee(emp,index,tasks){
-const div=document.createElement('div'); div.className='employee';
-const header=document.createElement('div'); header.className='employee-header';
-const nameSpan=document.createElement('span'); nameSpan.className='employee-name';
-nameSpan.textContent=emp.name+" ("+emp.position+")";
-const btnsDiv=document.createElement('div'); btnsDiv.className='employee-btns';
-const addBtn=document.createElement('button'); addBtn.className='add-task'; addBtn.textContent='Vazifa qo‘shish'; addBtn.onclick=()=>addTask(index);
-const removeBtn=document.createElement('button'); removeBtn.className='remove-employee'; removeBtn.textContent='O‘chirish'; removeBtn.onclick=()=>removeEmployee(index);
-const showDoneBtn=document.createElement('button'); showDoneBtn.className='show-done'; showDoneBtn.textContent=emp.showDone ? 'Bajarilgan vazifalarni yashirish' : 'Bajarilgan vazifalarni ko‘rish'; showDoneBtn.onclick=()=>toggleDoneTasks(index);
-btnsDiv.appendChild(addBtn); btnsDiv.appendChild(removeBtn); btnsDiv.appendChild(showDoneBtn);
-header.appendChild(nameSpan); header.appendChild(btnsDiv);
-div.appendChild(header);
+/* ===== RENDER ===== */
+function renderEmployees(filter=false){
+    const list = document.getElementById('employeeList');
+    list.innerHTML = "";
 
-// Hodim info
-const infoDiv=document.createElement('div'); infoDiv.className='employee-info';
-infoDiv.innerHTML=`<span>Qayerda ishlaydi: ${emp.location}</span><span>Ishlayotgani: ${emp.position}</span>`;
-div.appendChild(infoDiv);
+    employees.forEach((emp,i)=>{
+        const div = document.createElement('div');
+        div.className='employee';
 
-// Tasks
-const taskDiv=document.createElement('div'); taskDiv.className='tasks';
-tasks.forEach((task,tIndex)=>{
-const t=document.createElement('div'); t.className='task';
-if(task.done) t.classList.add('done');
-const now=new Date();
-if(!task.done && new Date(task.deadline)<now) t.classList.add('overdue');
-const span=document.createElement('span'); span.textContent=`${task.name} | Muddati: ${task.deadline} | ${task.location}`;
-const taskBtns=document.createElement('span');
-const doneBtn=document.createElement('button'); doneBtn.className='done-btn'; doneBtn.textContent='Bajarildi'; doneBtn.onclick=()=>markDone(index,tIndex);
-const editBtn=document.createElement('button'); editBtn.className='edit-btn'; editBtn.textContent='Taxrirlash'; editBtn.onclick=()=>editTask(index,tIndex);
-const moveBtn=document.createElement('button'); moveBtn.className='move-btn'; moveBtn.textContent='Boshqa hodimga'; moveBtn.onclick=()=>moveTask(index,tIndex);
-taskBtns.appendChild(doneBtn); taskBtns.appendChild(editBtn); taskBtns.appendChild(moveBtn);
-t.appendChild(span); t.appendChild(taskBtns);
-taskDiv.appendChild(t);
-});
+        div.innerHTML = `
+        <div class="employee-header">
+            <b>${emp.name} (${emp.position})</b>
+            <div class="employee-btns">
+                <button class="add-task" onclick="addTask(${i})">Vazifa</button>
+                <button class="remove-employee" onclick="removeEmployee(${i})">O‘chirish</button>
+                <button class="show-done" onclick="toggleDoneTasks(${i})">
+                    ${emp.showDone?"Yashirish":"Bajarilganlar"}
+                </button>
+            </div>
+        </div>
+        <div class="employee-info">
+            <span>${emp.location}</span>
+        </div>
+        `;
 
-// Bajarilgan vazifalar
-if(emp.showDone){
-const doneTasks=emp.tasks.filter(t=>t.done);
-doneTasks.forEach((task,tIndex)=>{
-const t=document.createElement('div'); t.className='task done';
-const span=document.createElement('span'); span.textContent=`${task.name} | Muddati: ${task.deadline} | ${task.location}`;
-const taskBtns=document.createElement('span');
-const editBtn=document.createElement('button'); editBtn.className='edit-btn'; editBtn.textContent='Taxrirlash'; editBtn.onclick=()=>editTask(index,emp.tasks.indexOf(task));
-taskBtns.appendChild(editBtn);
-t.appendChild(span); t.appendChild(taskBtns);
-taskDiv.appendChild(t);
-});
-}
+        const tasks = document.createElement('div');
+        tasks.className='tasks';
 
-div.appendChild(taskDiv);
-return div;
-}
+        emp.tasks.forEach((t,ti)=>{
+            if(!emp.showDone && t.done) return;
+            const task = document.createElement('div');
+            task.className='task'+(t.done?' done':'')+(new Date(t.deadline)<new Date()&&!t.done?' overdue':'');
+            task.innerHTML = `
+            <span>${t.name} | ${t.deadline} | ${t.location}</span>
+            <span>
+                <button class="done-btn" onclick="markDone(${i},${ti})">✔</button>
+                <button class="edit-btn" onclick="editTask(${i},${ti})">✎</button>
+                <button class="move-btn" onclick="moveTask(${i},${ti})">⇄</button>
+            </span>`;
+            tasks.appendChild(task);
+        });
 
-// Filtrlarga ma'lumot
-function updateEmployeeFilter(){
-const filter=document.getElementById('employeeFilter'); const val=filter.value;
-filter.innerHTML='<option value="">Hodimni tanlang</option>';
-employees.forEach(emp=>{const opt=document.createElement('option'); opt.value=emp.name; opt.textContent=emp.name; filter.appendChild(opt);});
-filter.value=val;
-}
-function updateTaskFilter(){
-const filter=document.getElementById('taskFilter'); const val=filter.value;
-filter.innerHTML='<option value="">Vazifani tanlang</option>';
-const taskSet=new Set();
-employees.forEach(emp=>emp.tasks.forEach(t=>taskSet.add(t.name)));
-taskSet.forEach(t=>{const opt=document.createElement('option'); opt.value=t; opt.textContent=t; filter.appendChild(opt);});
-filter.value=val;
+        div.appendChild(tasks);
+        list.appendChild(div);
+    });
 }
 </script>
+
 </body>
 </html>
